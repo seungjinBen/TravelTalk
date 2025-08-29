@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARIS</title>
+    <script src="https://kit.fontawesome.com/ab5a57cf74.js" crossorigin="anonymous"></script>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css"/>
+    <script type="text/javascript" src="../category.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+      <div class="inner">
+        <div class="head-container">
+          <div class="head-brand"><a href="???">TravelTalk</a></div>
+          <div class="head-in"><a href="???">더 알아보기</a></div>
+        </div>
+      </div>
+    </header>
+    
+    <main class="main">
+      <!-- Side Bar -->
+      <aside class="sidebar">
+        <div class="side-container">
+          <!-- <img id = "sideImg" src="/paris/img/파리 배경.jpg" alt="파리 배경" style="width: 413px; height: 935px;"> -->
+          <div class="title">PARIS</div>
+            <div class="message">
+              원하는 장소를 클릭하시면<br />
+              간접 여행과 함께<br />
+              해당 장소에서 사용되는 회화를<br />
+              자연스레 익힐 수 있습니다.
+            </div>
+          </div>
+      </aside>
+
+      <!-- GoogleMap & Buttons -->
+      <section class="main-container">
+        <div class="buttons">
+          <div class="button">
+            <div class="place" onclick='initMap()'>모든 장소</div>
+          </div>
+          <div class="button">
+            <div class="tour" onclick='initMapA()'>관광명소</div>
+          </div>
+          <div class="button">
+            <div class="restaurant" onclick='initMapB()'>음식점</div>
+          </div>
+          <div class="button">
+            <div class="store" onclick='initMapC()'>상점</div>
+          </div>
+          <div class="button">
+            <div class="traffic" onclick='initMapD()'>대중교통</div>
+          </div>
+          <div class="button">
+            <div class="others" onclick='initMapE()'>기타 시설</div>
+          </div>
+        </div>
+        <div id="map" style="height: 810px; width: 1245px;"></div>
+      </section>
+    </main>
+
+    <!-- 구글맵 api -->
+    <script>
+    let _list = "<%= JSON.stringify(list) %>";
+
+
+    _list = _list.replaceAll('&#34;', '\"');
+    _list = JSON.parse(_list);
+
+    var markers = [];
+    var type;
+
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: {lat: 48.863769, lng: 2.312777}
+      });
+
+      const bounds = new google.maps.LatLngBounds();
+      const infowindow = new google.maps.InfoWindow();
+
+      var i, label;
+      var myIcon = new google.maps.MarkerImage("../img/marker.png", null, null, null, new google.maps.Size(60,40));
+      // var info = '<div class="wrap"><div class="text-box"><h4>경복궁</h4><div class="img-box"><img src="https://image.shutterstock.com/image-vector/palace-icon-outline-vector-web-260nw-1046855677.jpg"></img></div><div onclick = "info()">홈페이지 방문하기</div></div></div>';
+
+      _list.forEach(({ id, placeType, placeName, lat, lng}) => {
+        if (placeType == 'A' || placeType == 'B' || placeType == 'C' || placeType == 'D' || placeType == 'E') {
+            const marker = new google.maps.Marker({
+              position: { lat, lng },
+              map: map,
+              icon: myIcon
+            });
+            bounds.extend(marker.position);
+            
+            marker.addListener("mouseover", () => {
+              infowindow.setContent(placeName);
+              infowindow.open({
+                anchor: marker,
+                map,
+              });
+            });
+            marker.addListener("click", () => {
+              map.panTo(marker.position);
+              type = id;
+              clickAbout(type);
+            });
+            markers.push(marker)
+          }
+        });
+        map.fitBounds(bounds);
+      }
+
+    function clickAbout(){
+      // id값 전달 -> about페이지에서 이미지 출력
+      // 
+      location.href = "/about?type="+type;
+      // document.getElementById("placeImg").innerHTML="안녕하세요.";
+    }
+
+    </script>
+    <script defer src=
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyApgcLznfOhJn0f4NCy6LmXfN_2sJJ0BXA&callback=initMap">
+    </script>
+</body>
+<!-- <footer>
+    <ul class="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Country(paris, london)</a></li>
+        <li><a href="#">---</a></li>
+        <li><a href="#">Customer Service</a></li>
+    </ul>
+</footer> -->
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+</head>
+<body>
+    <h1>테스트</h1>
+    <table>
+      <% for(i = 0; i < list.length; i++) { %>
+      <tr>
+        <td><%=i+1 %></td>
+        <td><%=list[i].lat %></td>
+        <td><%=list[i].lng %></td>
+        <td><%=list[i].placeName %></td>
+      </tr>
+      <% } %>
+    </table>
+      <div id="map" style="height: 700px;"></div>
+      <script>
+        let _list = "<%= JSON.stringify(list) %>";
+
+        _list = _list.replaceAll('&#34;', '\"');
+        _list = JSON.parse(_list);
+        console.log(_list)
+        console.log(_list.length)
+        
+        function initMap() {
+          const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {lat: 48.863769, lng: 2.312777}
+          });
+
+          const bounds = new google.maps.LatLngBounds();
+          const infowindow = new google.maps.InfoWindow();
+
+          var i, label;
+          _list.forEach(({ placeType, placeName, lat, lng }) => {
+            const marker = new google.maps.Marker({
+              position: { lat, lng },
+              placeType,
+              map: map
+            });
+            bounds.extend(marker.position);
+
+            marker.addListener("click", () => {
+              map.panTo(marker.position);
+              infowindow.setContent(placeName);
+              infowindow.open({
+                anchor: marker,
+                map,
+              });
+            });
+          });
+
+          map.fitBounds(bounds);
+        }
+    </script>
+    <script async defer src=
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyApgcLznfOhJn0f4NCy6LmXfN_2sJJ0BXA&callback=initMap">
+    </script>
+</body>
+</html>

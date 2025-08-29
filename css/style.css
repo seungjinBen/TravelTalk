@@ -1,0 +1,330 @@
+:root {
+    --white-color: #fff;
+    --black-color: #140a00;
+    --grey-dark-color: #363636;
+    --grey-light-color: #e0e0e0;
+
+
+    --font-large: 20px;
+    --font-medium: 16px;
+    --font-small: 12px;
+
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: var(--black-color);
+}
+body {
+    margin: 0 auto;
+    color: #3f464d;
+    font-family: "Spoqa Han Sans Neo", "Sans-serif";
+  }
+
+/* Header */
+.inner {
+    width: 100%; /* 가로 사이즈가 1200px 넘는 해상도에서는 max-width 설정 */
+    height: 100%; /* align-items 등으로 수직 가운데 정렬을 위해, 알맞은 height 설정이 필요함 */
+    margin: 0 auto; /* 가운데 정렬: 동일 요소에 width 가 설정되어 있을 때에만 적용 */
+    padding: 0rem 2rem; /* 좌우 padding 을 살짝 주어서, 좌우에 딱 붙지 않도록 함 */
+    overflow: hidden; /* 넘치는 영역에 대해서는 표시안되도록 작성해야 함 */
+}
+header {
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.head-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.head-container .head-brand{
+    margin-left: 60px;
+    font-size: 1.2rem;
+}
+.head-container .head-in{
+    margin-right: 60px;
+    font-size: 1.2rem;
+}
+
+/* Sidebar */
+.main{
+    position: relative;
+}
+.placeImg :not(p){
+    position: absolute;
+    top: 20px;
+    left: 0;
+    z-index: 10;
+}
+.backImg{
+    position: absolute;
+    top: 410px;
+    left: 0px;
+    z-index: 10;
+    font-weight: bold;
+    color: #ff5544;
+}
+.frontImg{
+    position: absolute;
+    top: 410px;
+    left: 430px;
+    z-index: 10;
+    font-weight: bold;
+    color: #ff5544;
+}
+
+.sidebar{
+	position: absolute;
+    top: 20px;
+    left: 0;
+    width: 413px;
+    height: 935px;
+    background-image: url(../img/파리\ 배경.jpg);
+    background-size: cover;
+    background-position: center 5%; /* 이미지 위치를 살짝 위로 올리기 위한 position 설정 */
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0.4;
+}
+.aboutSidebar{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 845px;
+    height: 935px;
+    border-right: 1px solid var(--grey-dark-color);
+    z-index: -3;
+}
+
+/* .side-container{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(47, 48, 89);
+    opacity: 0.3;
+    z-index: 2;
+    margin-top: 60px;
+} */
+
+/* 메인페이지 화면 */
+.side-container .title{
+    position: absolute;
+    top: 80px;
+    left: 280px;
+    font-weight: bold;
+    color: white;
+    font-size: 2.5rem;
+}
+.side-container .message{
+    text-align: right;
+    font-weight: bold;
+    position: absolute;
+    top: 180px;
+    left: 140px;
+    color: #fff;
+    font-size: 1.2rem;
+}
+/* 상세페이지 화면 */
+.side-container #title{
+    position: absolute;
+    top: 40px;
+    left: 520px;
+    font-weight: bold;
+    color: black;
+    font-size: 2.3rem;
+}
+.side-container #message{
+    position: absolute;
+    top: 150px;
+    left: 520px;
+    font-size: 1.4rem;
+}
+
+.exit{
+    position: absolute;
+    top: 40px;
+    left: 770px;
+    font-size: 1.5rem;
+}
+/* COMMUNICATE */
+.top1{
+    font-size: larger; 
+    position: absolute;
+    color: black;
+    top: 440px;
+    width: 400px;
+    border: 1px solid var(--grey-dark-color);
+    padding: 10px;
+}
+.commuList{
+    position: absolute;
+    top: 489px;
+    width: 400px;
+    margin: auto; 
+    background-color: var(--grey-light-color);
+    padding: 3px;
+}
+.box-init { 
+    font-size: larger; 
+    color: black; 
+    /* border-radius: 5px;  */
+    background-color: white; 
+    border: 1px solid var(--grey-dark-color); 
+    padding: 10px;
+    display: flex; 
+    align-items: center; 
+    justify-content: left; 
+  }
+.top2{
+    font-size: larger; 
+    position: absolute;
+    color: black;
+    top: 440px;
+    left: 400px;
+    width: 445px;
+    border: 1px solid var(--grey-dark-color);
+    padding: 10px;
+}
+.they #he1{
+    position: absolute;
+    top: 520px;
+    left: 610px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    background-color: royalblue;
+    padding: 8px;
+}
+.they #she1{
+    position: absolute;
+    top: 620px;
+    left: 420px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    background-color: var(--grey-light-color);
+    padding: 8px;
+}
+.they #he2{
+    position: absolute;
+    top: 720px;
+    left: 610px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    background-color: royalblue;
+    padding: 8px;
+}
+.they #she2{
+    position: absolute;
+    top: 820px;
+    left: 420px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    background-color: var(--grey-light-color);
+    padding: 8px;
+}
+/* .list {
+    display: flex;
+    font-size: var(--font-medium);
+}
+.list li {
+    padding: 8px 12px;
+}
+.list li:hover {
+    font-size: var(--font-large);
+}
+
+.toogleBtn {
+    display: none;
+    position: absolute;
+    right: 32px;
+    font-size: var(--font-large);
+} */
+
+/* Buttons */
+.buttons {
+    border-bottom: 1px solid var(--grey-light-color);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.buttons .button{
+    font-size: var(--font-medium);
+    margin: 10px 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    border-radius: 15px;
+}
+.buttons .button i{
+    font-size: 20px;
+    color: #ff5544;
+}
+.place{
+    color:rgb(47, 48, 89);
+}
+.tour{
+    color: rgb(47, 48, 89);
+}
+.restaurant{
+    color: rgb(47, 48, 89);
+}
+.store{
+    color:rgb(47, 48, 89);
+}
+.traffic{
+    color: rgb(47, 48, 89);
+}
+.others{
+    color: rgb(47, 48, 89);
+}
+
+/* Main */
+.main-container {
+    position: relative;
+    float: right;
+    flex-direction: column;
+    display: flex;
+    margin-top: 60px;
+    margin-right: 30px;
+}
+.map{
+    align-items: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+    .icons {
+        display: none;
+        justify-content: center;
+    }
+    .toogleBtn {
+        display: block;
+    }
+
+    .menu.active,
+    .icons.active {
+        display: flex;
+    }
+}

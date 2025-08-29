@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ab5a57cf74.js" crossorigin="anonymous"></script>
+    <title>PARIS</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="title">트래블톡 in paris</span>
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="logIn">
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="plane">
+            <i class="fa-solid fa-plane-departure"></i>
+        </div>
+        <a href="#" class="toogleBtn">
+            <i class="fas fa-bars"></i>
+        </a>
+    </header>
+
+    <!-- Buttons -->
+    <section class="buttons">
+        <button class="tour">관광명소</button>
+        <button class="restaurant">음식점</button>
+        <button class="store">상점</button>
+        <button class="traffic">대중교통</button>
+        <button class="others">기타 시설</button>
+    </section>
+
+    <div id="map" style="height: 700px;"></div>
+
+    <!-- Items -->
+    <ul class="items">
+
+    </ul>
+
+    <!-- 구글맵 api -->
+    <script defer src="./index.js"></script>
+    <script defer src=
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyApgcLznfOhJn0f4NCy6LmXfN_2sJJ0BXA&callback=initMap">
+    </script>
+</body>
+<footer>
+    <ul class="menu">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Country(paris, london)</a></li>
+        <li><a href="#">---</a></li>
+        <li><a href="#">Customer Service</a></li>
+    </ul>
+</footer>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARIS</title>
+    <script src="https://kit.fontawesome.com/ab5a57cf74.js" crossorigin="anonymous"></script>
+    <link href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css"/>
+    <script type="text/javascript" src="../category.js"></script>
+    <script></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+      <div class="inner">
+        <div class="head-container">
+          <div class="head-brand"><a href="/List">TravelTalk</a></div>
+          <div class="head-in"><a href="???">더 알아보기</a></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Side Bar -->
+      <aside class="aboutSidebar">
+        <img id = "placeImg" referrerpolicy="no-referrer" src="" alt=""
+            style="width: 500px; height: 440px;">
+        <button class="backImg" onclick="back()">이전 사진<i class="fa-solid fa-chevron-right"></i></button>
+        <button class="frontImg" onclick="front()">다음 사진<i class="fa-solid fa-chevron-right"></i></button>
+        <div class="side-container">
+          <h2 id="title">장소 이름</h2>
+          <textarea id="message" cols="25" rows="10" readonly>장소에 대한 정보를 여기에 삽입한다.
+            이 정보는 하나하나 찾아서 mysql에 삽입할 예정이다.
+            일단은 구현할 기능들을 express로 차근차근 구성한다.
+            그 후, 현재 프로젝트를 react로 재구성하면서 완성해나간다.
+          </textarea>
+        </div>
+        <div class="top1">문장</div>
+        <div class="commuList">
+          <div class="box-init"><p id="box1">A</p></div>
+          <div class="box-init"><p id="box2">B</p></div>
+          <div class="box-init"><p id="box3">C</p></div> 
+          <div class="box-init"><p id="box4">D</p></div> 
+          <div class="box-init"><p id="box5">E</p></div> 
+          <div class="box-init"><p id="box6">F</p></div> 
+          <div class="box-init"><p id="box7">G</p></div>
+          <div class="box-init"><p id="box8">H</p></div> 
+          <div class="box-init"><p id="box9">I</p></div> 
+        </div>
+        <div class="communicate">
+          <div class="top2">대화</div>
+          <div class="they"><p id="he1">주문하시겠어요?</p></div>
+          <div class="they"><p id="she1">네, 주문할게요</p></div>
+          <div class="they"><p id="he2">어떤 것으로 드시겠어요?</p></div>
+          <div class="they"><p id="she2">이걸로 주세요.</p></div>
+        </div>
+        <button class="exit" onclick="goHome()">EXIT</button>
+      </aside>
+
+      <!-- GoogleMap & Buttons -->
+      <section class="main-container">
+        <div class="buttons">
+          <div class="button">
+            <div class="place" onclick='initMap()'>모든 장소</div>
+          </div>
+          <div class="button">
+            <div class="tour" onclick='initMapA()'>관광명소</div>
+          </div>
+          <div class="button">
+            <div class="restaurant" onclick='initMapB()'>음식점</div>
+          </div>
+          <div class="button">
+            <div class="store" onclick='initMapC()'>상점</div>
+          </div>
+          <div class="button">
+            <div class="traffic" onclick='initMapD()'>대중교통</div>
+          </div>
+          <div class="button">
+            <div class="others" onclick='initMapE()'>기타 시설</div>
+          </div>
+        </div>
+        <div id="map" style="height: 810px; width: 810px;"></div>
+      </section>
+    </main>
+
+    <!-- 구글맵 api -->
+    <script>
+    let _list = "<%= JSON.stringify(list) %>";
+    
+
+    _list = _list.replaceAll('&#34;', '\"');
+    _list = JSON.parse(_list);
+
+    function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+      return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    };
+    
+    var placeId = getParameterByName('type');
+
+    var markers = [];
+    function initMap() {
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 30,
+        center: {lat: 48.863769, lng: 2.312777}
+    });
+
+    const bounds = new google.maps.LatLngBounds();
+    const infowindow = new google.maps.InfoWindow();
+
+    var i, label;
+    var myIcon = new google.maps.MarkerImage("../img/marker.png", null, null, null, new google.maps.Size(60,40));
+    // var info = '<div class="wrap"><div class="text-box"><h4>경복궁</h4><div class="img-box"><img src="https://image.shutterstock.com/image-vector/palace-icon-outline-vector-web-260nw-1046855677.jpg"></img></div><div onclick = "info()">홈페이지 방문하기</div></div></div>';
+
+    _list.forEach(({ id, placeType, placeName, lat, lng, imgUrl_1}) => {
+        if (id == placeId) {
+          document.getElementById("placeImg").src = imgUrl_1;
+          const titleText = document.getElementById("title");
+          titleText.innerText = placeName;
+          // document.getElementById("message").innerText = placeType;
+          placeS = placeType;
+          placeSentence(placeS); // 장소에 따른 문장리스트
+        };
+        if (placeType == 'A' || placeType == 'B' || placeType == 'C' || placeType == 'D' || placeType == 'E') {
+          const marker = new google.maps.Marker({
+          position: { lat, lng },
+          map: map,
+          icon: myIcon
+          });
+          bounds.extend(marker.position);
+          
+          marker.addListener("mouseover", () => {
+          infowindow.setContent(placeName);
+          infowindow.open({
+              anchor: marker,
+              map,
+            });
+          });
+          marker.addListener("click", () => {
+            map.panTo(marker.position);
+          });
+          markers.push(marker)
+        }
+      });
+      map.fitBounds(bounds);
+    }
+
+    const sentenceA = ["관광명소", "Can you take a picture of me?"];
+    const sentenceB = ["음식점", "I'd like to order."];
+    const sentenceC = ["상점", "How much are they?"];
+    const sentenceD = ["대중교통", "Do we go here?"];
+    const sentenceE = ["기타시설", "How can I get here?"];
+
+    function placeSentence(placeS){
+      if (placeS == 'A'){
+        document.getElementById("box2").innerText = sentenceA[0];
+        document.getElementById("box3").innerText = sentenceA[1];
+      }
+      if (placeS == 'B'){
+        document.getElementById("box2").innerText = sentenceB[0];
+        document.getElementById("box3").innerText = sentenceB[1];
+      }
+      if (placeS == 'C'){
+        document.getElementById("box2").innerText = sentenceC[0];
+        document.getElementById("box3").innerText = sentenceC[1];
+      }
+      if (placeS == 'D'){
+        document.getElementById("box2").innerText = sentenceD[0];
+        document.getElementById("box3").innerText = sentenceD[1];
+      }
+      if (placeS == 'E'){
+        document.getElementById("box2").innerText = sentenceE[0];
+        document.getElementById("box3").innerText = sentenceE[1];
+      }
+    }
+
+
+    let imgNum = 1;
+
+    const back = () => {
+      imgNum -=1;
+      if (imgNum < 1){
+        imgNum = 1
+      }
+      goImage(imgNum);
+    }
+    const front = () => {
+      imgNum +=1;
+      if (imgNum > 6){
+        imgNum = 6
+      }
+      console.log(imgNum); // 이미지 3개일때 값은 6까지 증가함.
+      goImage(imgNum);
+    }
+
+    function goImage(imgNum){
+      _list.forEach(({id, imgUrl_1, imgUrl_2, imgUrl_3, imgUrl_4, imgUrl_5, imgUrl_6}) => {
+        if (id == placeId){
+          if (imgNum == 1){
+            if(imgUrl_1 != null) {
+              document.getElementById("placeImg").src = imgUrl_1;
+            }
+            else {imgNum = imgNum -1}
+          };
+          if (imgNum == 2){
+            if(imgUrl_2 != null) {
+              document.getElementById("placeImg").src = imgUrl_2;
+            }
+            else {imgNum = imgNum -1}
+          };
+          if (imgNum == 3){
+            if(imgUrl_3 != null) {
+              document.getElementById("placeImg").src = imgUrl_3;
+            }
+            else {imgNum = imgNum -1}
+          };
+          if (imgNum == 4){
+            if(imgUrl_4 != null) {
+              document.getElementById("placeImg").src = imgUrl_4;
+            }
+            else {imgNum = imgNum -1}
+          };
+          if (imgNum == 5){
+            if(imgUrl_5 != null) {
+              document.getElementById("placeImg").src = imgUrl_5;
+            }
+            else {imgNum = imgNum -1}
+          };
+          if (imgNum == 6){
+            if(imgUrl_6 != null) {
+              document.getElementById("placeImg").src = imgUrl_6;
+            }
+            else {imgNum = imgNum -1}
+          };
+        }
+      });
+    }
+
+    function goHome(){
+      location.href = "/List";
+    }
+
+    </script>
+    <script defer src=
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyApgcLznfOhJn0f4NCy6LmXfN_2sJJ0BXA&callback=initMap">
+    </script>
+</body>
+<!-- <footer>
+    <ul class="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Country(paris, london)</a></li>
+        <li><a href="#">---</a></li>
+        <li><a href="#">Customer Service</a></li>
+    </ul>
+</footer> -->
+</html>
