@@ -1,7 +1,6 @@
-# TravelTalk
-직접 가서 찍은 유럽의 장소들을 보여줌으로서 간접여행과 영어를 익힌다.
+# TravelTalk ## (Javascript + Node.js-express + MySQL)
+유럽의 각 장소들을 보면서 간접 여행과 함께 상황에 맞는 영어를 익힐 수 있다.
 
-Javascript + Node.js-express + MySQL 이용
 
 ## 기능
 1. 마커에 마우스 오버시 해당 장소 이름 출력 -> mysql에 담긴 장소 정보들을 ejs페이지에 list로 값을 뿌려줌.
