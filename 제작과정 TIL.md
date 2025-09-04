@@ -59,6 +59,7 @@
 * 장소에 대한 설명, 관련회화를 mysql에 삽입해야한다.
 * 배열로 장소타입에 맞는 문장리스트를 저장해야한다.
 * 이미지가 4개이하일때 값을 6까지 증가하는 오류를 수정해야한다.
+  - 페이징처리 기법을 응용하면 될 것 같다.
   - https://ljtaek2.tistory.com/148
 * React를 통한 SPA방식 변환 예정 
   - https://www.youtube.com/watch?v=s54r4nRhf8Y&list=LL&index=3
